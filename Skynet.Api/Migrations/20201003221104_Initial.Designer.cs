@@ -10,8 +10,8 @@ using Skynet.Entities;
 namespace Skynet.Api.Migrations
 {
     [DbContext(typeof(SkynetContext))]
-    [Migration("20201003164525_Init")]
-    partial class Init
+    [Migration("20201003221104_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -47,6 +47,57 @@ namespace Skynet.Api.Migrations
                     b.HasIndex("CountryId");
 
                     b.ToTable("Airlines");
+
+                    b.HasData(
+                        new
+                        {
+                            AirlineId = new Guid("a54e4ceb-9005-4768-978f-22f0c010829b"),
+                            Abbreviation = "ELAL",
+                            CountryId = 1,
+                            Name = "El Al"
+                        },
+                        new
+                        {
+                            AirlineId = new Guid("831251dc-06f3-4557-a6bb-edbe7371c253"),
+                            Abbreviation = "DAL",
+                            CountryId = 2,
+                            Name = "Delta Air Lines"
+                        },
+                        new
+                        {
+                            AirlineId = new Guid("a308f4d3-656a-43ab-bd44-075934278426"),
+                            Abbreviation = "AAL",
+                            CountryId = 2,
+                            Name = "American Airlines"
+                        },
+                        new
+                        {
+                            AirlineId = new Guid("cac3d5f7-43d8-4d71-9041-c2cae939d311"),
+                            Abbreviation = "BRA",
+                            CountryId = 3,
+                            Name = "British Airways"
+                        },
+                        new
+                        {
+                            AirlineId = new Guid("3c8ae801-6e2e-42d9-9254-277b284d72c5"),
+                            Abbreviation = "VRA",
+                            CountryId = 3,
+                            Name = "Virgin Atlantic"
+                        },
+                        new
+                        {
+                            AirlineId = new Guid("6739c7b3-b0f4-42ac-a8c8-7732cb4983e8"),
+                            Abbreviation = "JAL",
+                            CountryId = 4,
+                            Name = "Japan Airlines"
+                        },
+                        new
+                        {
+                            AirlineId = new Guid("75c8b747-e2de-4aa7-a6d4-f19e6816244b"),
+                            Abbreviation = "ANA",
+                            CountryId = 4,
+                            Name = "All Nippon Airways"
+                        });
                 });
 
             modelBuilder.Entity("Skynet.Entities.Models.Country", b =>
@@ -67,6 +118,28 @@ namespace Skynet.Api.Migrations
                         .HasName("IX_Countries");
 
                     b.ToTable("Countries");
+
+                    b.HasData(
+                        new
+                        {
+                            CountryId = 1,
+                            Name = "Israel"
+                        },
+                        new
+                        {
+                            CountryId = 2,
+                            Name = "USA"
+                        },
+                        new
+                        {
+                            CountryId = 3,
+                            Name = "UK"
+                        },
+                        new
+                        {
+                            CountryId = 4,
+                            Name = "Japan"
+                        });
                 });
 
             modelBuilder.Entity("Skynet.Entities.Models.Flight", b =>

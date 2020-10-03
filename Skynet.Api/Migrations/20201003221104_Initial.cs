@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Skynet.Api.Migrations
 {
-    public partial class Init : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -109,6 +109,31 @@ namespace Skynet.Api.Migrations
                         principalTable: "Users",
                         principalColumn: "UserId",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Countries",
+                columns: new[] { "CountryId", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Israel" },
+                    { 2, "USA" },
+                    { 3, "UK" },
+                    { 4, "Japan" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Airlines",
+                columns: new[] { "AirlineId", "Abbreviation", "CountryId", "Name" },
+                values: new object[,]
+                {
+                    { new Guid("a54e4ceb-9005-4768-978f-22f0c010829b"), "ELAL", 1, "El Al" },
+                    { new Guid("831251dc-06f3-4557-a6bb-edbe7371c253"), "DAL", 2, "Delta Air Lines" },
+                    { new Guid("a308f4d3-656a-43ab-bd44-075934278426"), "AAL", 2, "American Airlines" },
+                    { new Guid("cac3d5f7-43d8-4d71-9041-c2cae939d311"), "BRA", 3, "British Airways" },
+                    { new Guid("3c8ae801-6e2e-42d9-9254-277b284d72c5"), "VRA", 3, "Virgin Atlantic" },
+                    { new Guid("6739c7b3-b0f4-42ac-a8c8-7732cb4983e8"), "JAL", 4, "Japan Airlines" },
+                    { new Guid("75c8b747-e2de-4aa7-a6d4-f19e6816244b"), "ANA", 4, "All Nippon Airways" }
                 });
 
             migrationBuilder.CreateIndex(
