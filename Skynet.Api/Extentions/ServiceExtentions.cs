@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Skynet.Entities;
+using Skynet.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,11 @@ namespace Skynet.Api.Extentions
             });
         public static void ConfigureSqlContext(this IServiceCollection services, IConfiguration configuration) =>
             services.AddDbContext<SkynetContext>(opts =>
-                opts.UseSqlServer(configuration.GetConnectionString("Skynet"), b => b.MigrationsAssembly("Skynet.Api")));
+                //.UseLazyLoadingProxies()
+                   opts.UseSqlServer(configuration.GetConnectionString("Skynet"), b => b.MigrationsAssembly("Skynet.Api")));
+
+        public static void ConfigureRepositoryManager(this IServiceCollection services) =>
+          services.AddScoped<IRepositoryManager, RepositoryManager>();
     }
 
 
