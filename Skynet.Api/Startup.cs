@@ -30,14 +30,7 @@ namespace Skynet.Api
             services.ConfigureSqlContext(Configuration);
             services.ConfigureRepositoryManager();
             services.AddAutoMapper(typeof(Startup));
-
-            services.AddControllers(config =>
-            {
-                config.RespectBrowserAcceptHeader = true;
-                config.ReturnHttpNotAcceptable = true;
-                config.CacheProfiles.Add("cache-default", new CacheProfile { Duration = 30 });
-            }).AddNewtonsoftJson(x =>
-            x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            services.ConfigureControllers();
 
         }
 
