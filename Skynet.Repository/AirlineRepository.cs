@@ -17,14 +17,21 @@ namespace Skynet.Repository
         public async Task<IEnumerable<Airline>> GetAirlineByCountryAsync(int id, bool trackChanges)
         {
             var result = await FindByCondition(c => c.CountryId.Equals(id), trackChanges)
+                .Include(c => c.Country)
                 .ToListAsync();
 
             return result;
+        }
+
+        public IEnumerable<Airline> GetAllAirlines()
+        {
+            return FindAll(false).Include(c => c.Country);
         }
     }
 
     public interface IAirlineRepository
     {
         Task<IEnumerable<Airline>> GetAirlineByCountryAsync(int id, bool trackChanges);
+        IEnumerable<Airline> GetAllAirlines();
     }
 }

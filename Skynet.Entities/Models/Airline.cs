@@ -17,7 +17,7 @@ namespace Skynet.Entities.Models
         public Guid AirlineId { get; set; }
         public string Name { get; set; }
         public string Abbreviation { get; set; }
-        public int? CountryId { get; set; }
+        public int CountryId { get; set; }
 
         public virtual Country Country { get; set; }
         public virtual ICollection<Flight> Flights { get; set; }

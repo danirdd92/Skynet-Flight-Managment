@@ -1,6 +1,8 @@
 ﻿using Repository;
 using Skynet.Entities;
 using Skynet.Entities.Models;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Skynet.Repository
 {
@@ -9,7 +11,16 @@ namespace Skynet.Repository
         public CountryRepository(SkynetContext context) : base(context)
         {
         }
+
+        public IEnumerable<Country> GetAllCountries()
+        {
+            return FindAll(false);
+        }
     }
 
-    public interface ICountryRepository { }
+    public interface ICountryRepository
+    {
+
+        public IEnumerable<Country> GetAllCountries();
+    }
 }
