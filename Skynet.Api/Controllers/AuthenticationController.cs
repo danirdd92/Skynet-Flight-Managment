@@ -18,12 +18,12 @@ namespace Skynet.Api.Controllers
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
-        private readonly ILogger _logger;
+        private readonly ILogger<AuthenticationController> _logger;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
         private readonly IAuthenticationManager _authManager;
 
-        public AuthenticationController(ILogger logger, IMapper mapper,
+        public AuthenticationController(ILogger<AuthenticationController> logger, IMapper mapper,
                                         UserManager<User> userManager,
                                         IAuthenticationManager authManager)
         {
@@ -50,15 +50,7 @@ namespace Skynet.Api.Controllers
                 return BadRequest(ModelState);
             }
 
-            if(!userForRegistration.Roles.Any())
-            {
-                _logger.LogInformation("Roles doesn't exist in the registration DTO object, adding the default one.");
-                await _userManager.AddToRoleAsync(user, "Manager");
-            }
-            else
-            {
-                await _userManager.AddToRolesAsync(user, userForRegistration.Roles);
-            }
+            await _userManager.AddToRoleAsync(user, "Customer");
 
             return StatusCode(201);
         }

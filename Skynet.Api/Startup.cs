@@ -10,7 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Serilog;
+using Skynet.Api.ActionFilters;
 using Skynet.Api.Auth;
 using Skynet.Api.Extentions;
 
@@ -32,7 +33,7 @@ namespace Skynet.Api
             services.ConfigureRepositoryManager();
             services.AddAutoMapper(typeof(Startup));
             services.ConfigureControllers();
-            // Validations Actions Filters placeholder
+            services.AddScoped<ValidationFilterAttribute>();
 
             services.AddResponseCaching();
             services.AddAuthentication();
@@ -40,6 +41,7 @@ namespace Skynet.Api
             services.ConfigureJWT(Configuration);
             services.AddScoped<IAuthenticationManager, AuthenticationManager>();
             services.AddMvc();
+            services.ConfigureSwagger();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -55,7 +57,14 @@ namespace Skynet.Api
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(s =>
+            {
+                s.SwaggerEndpoint("/swagger/v1/swagger.json", "Skynet API");
+            });
 
             app.UseEndpoints(endpoints =>
             {
