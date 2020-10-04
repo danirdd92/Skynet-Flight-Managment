@@ -1,10 +1,12 @@
-﻿namespace Skynet.Entities.Dtos
+﻿using Skynet.Entities.Models;
+
+namespace Skynet.Entities.Dtos
 {
     public class AirlineDto
     {
         public string Name { get; set; }
         public string Abbreviation { get; set; }
-        public int CountryId { get; set; }
+        public CountryDto Country { get; set; }
     }
 
 
