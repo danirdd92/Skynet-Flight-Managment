@@ -35,7 +35,7 @@ namespace Skynet.Api
             {
                 config.RespectBrowserAcceptHeader = true;
                 config.ReturnHttpNotAcceptable = true;
-                config.CacheProfiles.Add("cache-default", new CacheProfile { Duration = 120 });
+                config.CacheProfiles.Add("cache-default", new CacheProfile { Duration = 30 });
             }).AddNewtonsoftJson(x =>
             x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
