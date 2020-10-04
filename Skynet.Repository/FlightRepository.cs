@@ -45,7 +45,7 @@ namespace Skynet.Repository
             return flights;
         }
 
-        public async Task<IEnumerable<Flight>> GetFlightsByUserAsync(Guid userId, bool trackChanges)
+        public async Task<IEnumerable<Flight>> GetFlightsByUserAsync(string userId, bool trackChanges)
         {
             var flights = await FindAll(trackChanges)
                 .Where(f => f.UserFlights.Contains(new UserFlights { UserId = userId }))
@@ -66,7 +66,7 @@ namespace Skynet.Repository
 
     public interface IFlightRepository
     {
-        Task<IEnumerable<Flight>> GetFlightsByUserAsync(Guid userId, bool trackChanges);
+        Task<IEnumerable<Flight>> GetFlightsByUserAsync(string userId, bool trackChanges);
         Task<IEnumerable<Flight>> GetFlightsByArrivalDateAsync(DateTime landingDate, bool trackChanges);
         Task<IEnumerable<Flight>> GetFlightsByDepartureDateAsync(DateTime departureDate, bool trackChanges);
         Task<IEnumerable<Flight>> GetFlightsByOriginCountryAsync(string countryName, bool trackChanges);

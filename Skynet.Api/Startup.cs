@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Skynet.Api.Auth;
 using Skynet.Api.Extentions;
 
 namespace Skynet.Api
@@ -31,7 +32,14 @@ namespace Skynet.Api
             services.ConfigureRepositoryManager();
             services.AddAutoMapper(typeof(Startup));
             services.ConfigureControllers();
+            // Validations Actions Filters placeholder
 
+            services.AddResponseCaching();
+            services.AddAuthentication();
+            services.ConfigureIdentity();
+            services.ConfigureJWT(Configuration);
+            services.AddScoped<IAuthenticationManager, AuthenticationManager>();
+            services.AddMvc();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Skynet.Entities.Models;
 using System;
 using System.Collections.Generic;
@@ -10,8 +11,42 @@ namespace Skynet.Entities.Extentions
     {
         public static void BuildModels(this ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.ToTable(name: "Users");
+            });
+
+            modelBuilder.Entity<IdentityRole>(entity =>
+            {
+                entity.ToTable(name: "Roles");
+            });
+            modelBuilder.Entity<IdentityUserRole<string>>(entity =>
+            {
+                entity.ToTable("UserRoles");
+            });
+
+            modelBuilder.Entity<IdentityUserClaim<string>>(entity =>
+            {
+                entity.ToTable("UserClaims");
+            });
+
+            modelBuilder.Entity<IdentityUserLogin<string>>(entity =>
+            {
+                entity.ToTable("UserLogins");     
+            });
+
+            modelBuilder.Entity<IdentityRoleClaim<string>>(entity =>
+            {
+                entity.ToTable("RoleClaims");
+            });
+
+            modelBuilder.Entity<IdentityUserToken<string>>(entity =>
+            {
+                entity.ToTable("UserTokens");
+            });
             modelBuilder.Entity<Airline>(entity =>
             {
+
                 entity.HasKey(e => e.AirlineId)
                     .HasName("PK__Airlines__DC4582136FF68F6F");
 
@@ -96,14 +131,15 @@ namespace Skynet.Entities.Extentions
 
             modelBuilder.Entity<User>(entity =>
             {
-                entity.HasKey(e => e.UserId)
+                entity.Property(u => u.Id).ValueGeneratedNever();
+                entity.HasKey(e => e.Id)
                     .HasName("PK__Users__1788CC4C7EA6D238");
 
-                entity.HasIndex(e => new { e.UserId, e.FirstName, e.LastName })
+                entity.HasIndex(e => new { e.Id, e.FirstName, e.LastName })
                     .HasName("IX_Users")
                     .IsUnique();
 
-                entity.Property(e => e.UserId).HasDefaultValueSql("(newid())");
+                entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
 
                 entity.Property(e => e.FirstName)
                     .IsRequired()

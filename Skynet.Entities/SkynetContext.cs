@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Skynet.Entities.Extentions;
 using Skynet.Entities.Models;
 using Skynet.Entities.SeedingConfigurations;
@@ -8,7 +10,7 @@ using System.Text;
 
 namespace Skynet.Entities
 {
-    public class SkynetContext : DbContext
+    public class SkynetContext : IdentityDbContext<User>
     {
 
 
@@ -21,7 +23,7 @@ namespace Skynet.Entities
         public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<Flight> Flights { get; set; }
         public virtual DbSet<UserFlights> UserFlights { get; set; }
-        public virtual DbSet<User> Users { get; set; }
+        public override DbSet<User> Users { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -32,6 +34,8 @@ namespace Skynet.Entities
 
             modelBuilder.ApplyConfiguration(new CountryConfiguration());
             modelBuilder.ApplyConfiguration(new AirlineConfiguration());
+            modelBuilder.ApplyConfiguration(new RoleConfiguration());
+            
         }
 
     }

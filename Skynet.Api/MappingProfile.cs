@@ -15,11 +15,18 @@ namespace Skynet.Api
             CreateMap<Airline, AirlineDto>()
                 .ForPath(c => c.Country.CountryName,
                 opt => opt.MapFrom(m => m.Country.Name));
+            
             CreateMap<Country, CountryDto>()
                 .ForMember(m => m.CountryName,
                 opt => opt.MapFrom(s => s.Name));
+            
             CreateMap<Flight, FlightDto>();
+            
             CreateMap<User, UserDto>();
+
+            CreateMap<UserForRegistrationDto, User>();
+
+            CreateMap<UserForAuthenticationDto, User>();
         }
     }
 }

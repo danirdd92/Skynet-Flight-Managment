@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Skynet.Entities;
 
 namespace Skynet.Api.Migrations
 {
     [DbContext(typeof(SkynetContext))]
-    partial class SkynetContextModelSnapshot : ModelSnapshot
+    [Migration("20201004143859_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,27 +45,27 @@ namespace Skynet.Api.Migrations
                         .HasName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("Roles");
+                    b.ToTable("AspNetRoles");
 
                     b.HasData(
                         new
                         {
-                            Id = "10af9e01-ff07-42bd-8ba3-f29e8e6b5d23",
-                            ConcurrencyStamp = "7ee54b97-52a7-4ef8-b11c-332a9d02b6d4",
+                            Id = "13e0c18b-0fa6-4298-9a63-021bbf92df0d",
+                            ConcurrencyStamp = "910c41cf-9e02-4ba7-9940-774e494d46f3",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "ce980550-8b5d-4e2c-8b4d-fe05520f47dc",
-                            ConcurrencyStamp = "579f861f-fcc8-417b-a3c7-c078bddb5c46",
+                            Id = "eba4a3f0-957b-453a-85e3-09652209d2ed",
+                            ConcurrencyStamp = "fe92b980-160f-45dd-b5ef-7c4e31c1e0df",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "10cbcfc9-76e4-4976-bce5-a3f2f092a50c",
-                            ConcurrencyStamp = "9a69752e-4d70-4f1c-9601-da974229ae56",
+                            Id = "bdf2c7c3-e82b-4439-85fc-4b9b54dcf4a5",
+                            ConcurrencyStamp = "7a827f32-83fb-4013-92db-c33ec2eb3948",
                             Name = "Airline",
                             NormalizedName = "AIRLINE"
                         });
@@ -90,7 +92,7 @@ namespace Skynet.Api.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("RoleClaims");
+                    b.ToTable("AspNetRoleClaims");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -114,7 +116,7 @@ namespace Skynet.Api.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserClaims");
+                    b.ToTable("AspNetUserClaims");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -136,7 +138,7 @@ namespace Skynet.Api.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserLogins");
+                    b.ToTable("AspNetUserLogins");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -151,7 +153,7 @@ namespace Skynet.Api.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("UserRoles");
+                    b.ToTable("AspNetUserRoles");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -170,7 +172,7 @@ namespace Skynet.Api.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("UserTokens");
+                    b.ToTable("AspNetUserTokens");
                 });
 
             modelBuilder.Entity("Skynet.Entities.Models.Airline", b =>
@@ -411,7 +413,7 @@ namespace Skynet.Api.Migrations
                         .IsUnique()
                         .HasName("IX_Users");
 
-                    b.ToTable("Users");
+                    b.ToTable("AspNetUsers");
                 });
 
             modelBuilder.Entity("Skynet.Entities.Models.UserFlights", b =>
